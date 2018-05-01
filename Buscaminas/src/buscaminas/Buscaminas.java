@@ -55,6 +55,11 @@ public class Buscaminas extends JFrame implements ActionListener, Runnable {
      */
     int totalMinas = 0;
     
+    /**
+     * Numero de casillas seleccionadas.
+     */
+    int casillasSeleccionadas = 0;
+    
     
 
     /**
@@ -273,6 +278,8 @@ public class Buscaminas extends JFrame implements ActionListener, Runnable {
     void reiniciar() {
 	crearMinas();
 	reiniciarCasillas();
+	casillasSeleccionadas = 0;
+	totalMinas = 0;
     }
     
     
@@ -299,6 +306,7 @@ public class Buscaminas extends JFrame implements ActionListener, Runnable {
 	    for (int j = 0; j < tamanoTablero; j++) {
 		if (numeroAleatorio() < 3) {
 		    minasTablero[i][j] = 1;
+		    totalMinas = totalMinas+1;
 		} else {
 		    minasTablero[i][j] = 0;
 		}
@@ -325,6 +333,10 @@ public class Buscaminas extends JFrame implements ActionListener, Runnable {
 		    
 		    usuarioPerdio();
 		} else {
+		    casillasSeleccionadas = casillasSeleccionadas + 1;
+		    if (casillasSeleccionadas + totalMinas == tamanoTablero*tamanoTablero) {
+			usuarioGano();
+		    }
 		    int minasAlrededor = minasAlrededor(x, y);
 		    if (minasAlrededor == 0) {
 			pintarAzul(x,y);
