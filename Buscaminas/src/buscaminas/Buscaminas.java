@@ -17,6 +17,7 @@ import javax.swing.SwingConstants;
 /**
  *
  * @author Andrés Movilla
+ * MASTER FILE
  */
 public class Buscaminas extends JFrame implements Runnable {
 
@@ -25,56 +26,101 @@ public class Buscaminas extends JFrame implements Runnable {
      */
     ImageIcon imagenMina;
 
+    
     /**
      * Icono de mina.
      */
     ImageIcon imagenBandera;
 
-    /**
-     * Tamaño de una casilla.
-     */
-    int tamanoCasilla = 55;
-
-    /**
-     * Espacio entre casillas.
-     */
-    int espacioCasilla = 5;
+    
+    /*
+	PUNTOS: PARTE A
+    */
+    
     
     /**
-     * Matriz de JLabel que corresponden a las minas en el tablero.
+     * Tamaño de una casilla.
+     * 
+     * ###
+     * PUNTO 1:
+     * Declare una variable entera 'tamanoCasilla' e inicialicela con un valor de 55.
      */
-    JLabel[][] textoTablero;
 
+    
+    /**
+     * Espacio entre casillas.
+     * 
+     * ###
+     * PUNTO 2:
+     * Declare una variable entera 'espacioCasilla' e inicialicela con un valor de 5.
+     */
+    
+    
+    /**
+     * Matriz de JLabel que corresponden al tablero.
+     * 
+     * ###
+     * PUNTO 3:
+     * Declare una matriz de tipo 'JLabel' con nombre 'textoTablero'.
+     */
+
+    
     /**
      * Matriz de int que correponden a la informacion del tablero.
+     * 
+     * ###
+     * PUNTO 4:
+     * Declare una matriz de Enteros con nombre 'minasTablero'.
      */
-    int[][] minasTablero;
 
+    
     /**
      * Numero de casillas en cada fila y columna del tablero.
+     * 
+     * ###
+     * PUNTO 5:
+     * Declare una variable entera 'tamanoTablero' e inicialicela con un valor de 10.
      */
-    int tamanoTablero = 10;
 
+    
     /**
      * Matriz de int que corresponden a los botones presionados.
+     * 
+     * ###
+     * PUNTO 6:
+     * Declare una matriz de Enteros con nombre 'botonesPresionados'.
      */
-    int[][] botonesPresionados;
 
+    
     /**
      * Numero de minas en el tablero.
+     * 
+     * ###
+     * PUNTO 7:
+     * Declare una variable entera 'totalMinas' e inicialicela con un valor de 0.
      */
-    int totalMinas = 0;
 
+    
     /**
      * Numero de casillas seleccionadas.
+     * 
+     * ###
+     * PUNTO 8:
+     * Declare una variable entera 'casillasSeleccionadas' e inicialicela con un valor de 0.
      */
-    int casillasSeleccionadas = 0;
 
+    
     /**
-     * Banderas plantadas
+     * Banderas plantadas.
+     * 
+     * ###
+     * PUNTO 9:
+     * Declare una variable entera 'banderasPlantadas' e inicialicela con un valor de 0.
      */
-    int banderasPlantadas = 0;
 
+    
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -105,12 +151,12 @@ public class Buscaminas extends JFrame implements Runnable {
 		    if (javax.swing.SwingUtilities.isRightMouseButton(e)) {
 			casillaBandera(p[0], p[1]);
 		    } else if (javax.swing.SwingUtilities.isLeftMouseButton(e)) {
-			casillaAbrir(p[0], p[1]);
+			casillaSeleccionar(p[0], p[1]);
 		    }
 		}
 	    }
 	});
-
+	
 	crearCasillas();
 	agregarCasillas();
 	crearMinas();
@@ -173,7 +219,7 @@ public class Buscaminas extends JFrame implements Runnable {
     /**
      * Muestra un aviso de perdida y reinicia el juego.
      */
-    void usuarioPerdio() {
+    void mostrarVentanaPerdedor() {
 	JOptionPane.showMessageDialog(this, "Perdió!", "Fin del juego", JOptionPane.PLAIN_MESSAGE);
 	reiniciar();
     }
@@ -181,16 +227,17 @@ public class Buscaminas extends JFrame implements Runnable {
     /**
      * Muestra un aviso de ganada y reinicia el juego.
      */
-    void usuarioGano() {
+    void mostrarVentanaGanador() {
 	JOptionPane.showMessageDialog(this, "Ganó!", "Fin del juego", JOptionPane.PLAIN_MESSAGE);
 	reiniciar();
     }
 
     /**
-     * Convierte un int a una String para usar en JButton o JLabel.
+     * Muestra el numero n en la casilla indicada.
      *
-     * @param n Numero a convertir.
-     * @return String para usar.
+     * @param x Posicion X de casilla indicada.
+     * @param y Posicion Y de casilla indicada.
+     * @param n Numero a mostrar.
      */
     void muestraMinasAlrededor(int x, int y, int n) {
 	textoTablero[x][y].setText("" + n);
@@ -266,7 +313,7 @@ public class Buscaminas extends JFrame implements Runnable {
     }
 
     /**
-     * Pone la imagen de la bandera de la casilla.
+     * Muestra una bandera en la casilla indicada.
      *
      * @param x Posicion X de la casilla indicada.
      * @param y Posicion Y de la casilla indicada.
@@ -276,7 +323,7 @@ public class Buscaminas extends JFrame implements Runnable {
     }
 
     /**
-     * Quita la imagen de la bandera de la casilla.
+     * Quita la imagen de la bandera de la casilla indicada.
      *
      * @param x Posicion X de la casilla indicada.
      * @param y Posicion Y de la casilla indicada.
@@ -311,6 +358,17 @@ public class Buscaminas extends JFrame implements Runnable {
 
 	return found ? new int[]{rx, ry} : null;
     }
+    
+    /**
+     * Limpiar casilla indicada.
+     *
+     * @param x Posicion X de la casilla a limpiar.
+     * @param y Posicion Y de la casilla a limpiar.
+     */
+    void limpiarCasilla(int x, int y) {
+	textoTablero[x][y].setText("");
+	textoTablero[x][y].setIcon(null);
+    }
 
     /**
      * Agrega los JButton y JLabel previamente creados a la ventana.
@@ -332,173 +390,136 @@ public class Buscaminas extends JFrame implements Runnable {
     }
 
     /*
-	PUNTOS
+	PUNTOS: PARTE B
      */
     
     /**
      * Reinicia la casilla indicada a su estado inicial.
      *
-     * @param x Posicion X de la casilla indicada.
-     * @param y Posicion Y de la casilla indicada.
+     * @param x Posicion X de la casilla a reiniciar.
+     * @param y Posicion Y de la casilla a reiniciar.
+     * 
+     * ###
+     * PUNTO 1:
+     * Declare un metodo 'reiniciarCasilla' que haga lo siguiente:
+     *	- Acepte como parametro la direccion X y Y de la casilla a reiniciar.
+     *	- Pintar la direccion dada por parametro de color "plano".
+     *	- Limpie la casilla con la direccion dada por parametro.
+     *	- Cambie el valor de botonesPresionados en la direccion dada por
+     *	    parametro a su valor inicial.
      */
-    void reiniciarCasilla(int x, int y) {
-	pintarPlano(x, y);
-	textoTablero[x][y].setText("");
-	textoTablero[x][y].setIcon(null);
-	botonesPresionados[x][y] = 0;
-    }
 
-    /**
-     * Reinicia el juego.
-     */
-    void reiniciar() {
-	totalMinas = 0;
-	casillasSeleccionadas = 0;
-	banderasPlantadas = 0;
-	crearMinas();
-	reiniciarCasillas();
-    }
-
+    
+    
+    
     /**
      * Reinicia todas las casillas.
+     * 
+     * ###
+     * PUNTO 2:
+     * Declare un metodo 'reiniciarCasillas' que haga lo siguiente:
+     *	- Recorra las casillas del tablero y las reinicie.
      */
-    void reiniciarCasillas() {
-	for (int i = 0; i < tamanoTablero; i++) {
-	    for (int j = 0; j < tamanoTablero; j++) {
-		reiniciarCasilla(i, j);
-	    }
-	}
-    }
 
+    
+    
+    
     /**
      * Crea las minas en el tablero.
+     * 
+     * ###
+     * PUNTO 3:
+     * Declare un metodo 'crearMinas' que haga lo siguiente:
+     *	- Inicialice la matriz minasTablero con tamaño cuadrado de tamanoTablero.
+     *	- Recorra las casillas del tablero y volver al 30% una mina (1), de lo
+     *	    contrario, nada(0).
+     *	- Cuente cuantas minas hay en el tablero.
      */
-    void crearMinas() {
-	minasTablero = new int[tamanoTablero][tamanoTablero];
-	for (int i = 0; i < tamanoTablero; i++) {
-	    for (int j = 0; j < tamanoTablero; j++) {
-		if (numeroAleatorio() < 3) {
-		    minasTablero[i][j] = 1;
-		    totalMinas = totalMinas + 1;
-		} else {
-		    minasTablero[i][j] = 0;
-		}
-	    }
-	}
-    }
+    
+    
 
+    
+    /**
+     * Reinicia el juego.
+     * 
+     * ###
+     * PUNTO 4:
+     * Declare un metodo 'reiniciar' que haga lo siguiente:
+     *	- Cambie el valor de totalMinas, casillasSeleccionadas, y 
+     *	    banderasPlantas a su valor inicial.
+     *	- Cree las minas.
+     *	- Reinicie las casillas.
+     */
+    
+    
+    
+    
     /**
      * Revisa si el usuario ganó.
+     * 
+     * ###
+     * PUNTO 5:
+     * Declare un metodo 'revisarGanar' que haga lo siguiente:
+     *	- Revise si el usuario ganó tras marcar todas las casillas con una
+     *	    seleccion o una bandera.
+     *	- Mostrar el tablero y la ventana de ganador.
      */
-    void revisarGanar() {
-	if (casillasSeleccionadas + banderasPlantadas == tamanoTablero * tamanoTablero) {
-	    mostrarTablero();
-	    usuarioGano();
-	}
-    }
 
+    
+    
+    
     /**
      * Muestra todas las minas en el tablero.
+     * 
+     * ###
+     * PUNTO 6:
+     * Declare un metodo 'mostrarTablero' que haga lo siguiente:
+     *	- Recorra el tablero y muestra la mina de la casilla.
+     *	- Ademas, que pinte la casilla de verde si la casilla tenia una bandera,
+     *	    de lo contrario, la pinta de rojo.
      */
-    void mostrarTablero() {
-	for (int i = 0; i < tamanoTablero; i++) {
-	    for (int j = 0; j < tamanoTablero; j++) {
-		if (minasTablero[i][j] == 1) {
-		    mostrarMina(i, j);
-		    if (botonesPresionados[i][j] != 2) {
-			pintarRojo(i, j);
-		    } else {
-			pintarVerde(i, j);
-		    }
-		}
-	    }
-	}
-    }
+    
+    
+    
+    
+
 
     /**
-     * Llama todos los metodos relacionados con abrir una casilla.
+     * Llama todos los metodos relacionados con poner una bandera en una casilla.
      *
-     * @param x Posicion X del boton presionado.
-     * @param y Posicion Y del boton presionado.
+     * @param x Posicion X de la casilla presionada.
+     * @param y Posicion Y de la casilla presionada.
+     * 
+     * ###
+     * PUNTO 7:
+     * Declare un metodo 'casillaBandera' que haga lo siguiente:
+     *	- Acepte como parametro la direccion X y Y de la casilla para poner
+     *	    una bandera.
+     *	- Revise que la posicion dada por parametro sea valida.
+     *	- No permita poner mas banderas que minas en el tablero.
+     *	- Plante una bandera solo si la casilla no está seleccionada, y revise si
+     *	    el usuario ganó.
+     *	- Quite la bandera si ya se encuentra una bandera plantada.
      */
-    void casillaAbrir(int x, int y) {
-	if (esPosicionValida(x, y)) {
-	    if (botonesPresionados[x][y] == 0) {
-		botonesPresionados[x][y] = 1;
 
-		if (minasTablero[x][y] == 1) {
-		    pintarRojo(x, y);
-		    mostrarMina(x, y);
-		    usuarioPerdio();
-		} else {
-		    casillasSeleccionadas = casillasSeleccionadas + 1;
-
-		    int minasAlrededor = minasAlrededor(x, y);
-		    if (minasAlrededor == 0) {
-			pintarAzul(x, y);
-			casillasAlrededor(x, y);
-		    } else {
-			pintarAzul(x, y);
-			muestraMinasAlrededor(x, y, minasAlrededor);
-		    }
-		    revisarGanar();
-		}
-	    }
-	}
-    }
-
-    /**
-     * Llama todos los metodos relacionados con banderear una casilla.
-     *
-     * @param x Posicion X del boton presionado.
-     * @param y Posicion Y del boton presionado.
-     */
-    void casillaBandera(int x, int y) {
-	if (esPosicionValida(x, y)) {
-	    if (botonesPresionados[x][y] == 0 && banderasPlantadas < totalMinas) {
-		botonesPresionados[x][y] = 2;
-		banderasPlantadas = banderasPlantadas + 1;
-		plantarBandera(x, y);
-		revisarGanar();
-	    } else if (botonesPresionados[x][y] == 2) {
-		botonesPresionados[x][y] = 0;
-		banderasPlantadas = banderasPlantadas - 1;
-		quitarBandera(x, y);
-	    }
-	}
-    }
-
-    /**
-     * Abre todas las casillas alrededor de la direccion indicada.
-     *
-     * @param x Posicion X de casilla indicada.
-     * @param y Posicion Y de casilla indicada.
-     */
-    void casillasAlrededor(int x, int y) {
-	casillaAbrir(x + 1, y);
-	casillaAbrir(x, y + 1);
-	casillaAbrir(x, y - 1);
-	casillaAbrir(x - 1, y);
-
-	casillaAbrir(x - 1, y - 1);
-	casillaAbrir(x + 1, y - 1);
-	casillaAbrir(x + 1, y + 1);
-	casillaAbrir(x - 1, y + 1);
-    }
-
+    
+    
+    
+    
     /**
      * Crea la matriz de JLabel.
+     * 
+     * ###
+     * PUNTO 8:
+     * Declare un metodo 'crearCasillas' que haga lo siguiente:
+     *	- Inicialice la matriz botonesPresionados con tamaño cuadrado de tamanoTablero.
+     *	- Inicialice la matriz textoTablero con tamaño cuadrado de tamanoTablero.
+     *	- Recorra el tablero y inicialice cada valor de botonesPresionados como
+     *	    cero, y cada valor de textoTablero como 'new JLabel()'.
      */
-    void crearCasillas() {
-	botonesPresionados = new int[tamanoTablero][tamanoTablero];
-	textoTablero = new JLabel[tamanoTablero][tamanoTablero];
-	for (int i = 0; i < tamanoTablero; i++) {
-	    for (int j = 0; j < tamanoTablero; j++) {
-		textoTablero[i][j] = new JLabel();
-		botonesPresionados[i][j] = 0;
-	    }
-	}
-    }
+
+
+    
 
     /**
      * Cuenta las minas alrededor de la casilla indicada.
@@ -506,19 +527,62 @@ public class Buscaminas extends JFrame implements Runnable {
      * @param x Posicion X de la casilla indicada.
      * @param y Posicion Y de la casilla indicada.
      * @return Numero de minas alrededor de la casilla indicada.
+     * 
+     * ###
+     * PUNTO 9:
+     * Declare un metodo 'minasAlrededor' que haga lo siguiente:
+     *	- Acepte como parametro la direccion X y Y de la casilla a contar.
+     *	- Cuente cuantas minas se encuentran alrededor de la direccion
+     *	    dada por parametro.
+     *	- Retorne el valor.
      */
-    int minasAlrededor(int x, int y) {
-	int m = 0;
-	for (int dx = -1; dx <= 1; dx++) {
-	    for (int dy = -1; dy <= 1; dy++) {
-		if (esPosicionValida(x + dx, y + dy)) {
-		    if (minasTablero[x + dx][y + dy] == 1) {
-			m = m + 1;
-		    }
-		}
-	    }
-	}
-	return m;
-    }
+    
+    
+    
+    
 
+    /**
+     * Llama todos los metodos relacionados con seleccionar una casilla.
+     *
+     * @param x Posicion X de la casilla presionada.
+     * @param y Posicion Y de la casilla presionada.
+     * 
+     * ###
+     * PUNTO 10a:
+     * Declare un metodo 'casillaSeleccionar' que haga lo siguiente:
+     *	- Acepte como parametro la direccion X y Y de la casilla a reiniciar.
+     *	- Revise que la posicion sea valida, y la casilla no haya sido 
+     *	    seleccionada ni tenga una bandera.
+     *	- Si la casilla seleccionada es una mina, se pinta la casilla de rojo,
+     *	    se muestra la mina, y se muestra la ventana de perdedor.
+     *	- Si no es una mina, se pinta de azul.
+     *	- Si no hay minas alrededor, se seleccionan las casillas alrededor.
+     *	- Si hay casillas alrededor, se muestran las minas alrededor.
+     *	- Finalmente, se revisa si el jugador ganó.
+     */
+    
+    
+    
+
+    /**
+     * Selecciona todas las casillas alrededor de la direccion indicada.
+     *
+     * @param x Posicion X de la casilla indicada.
+     * @param y Posicion Y de la casilla indicada.
+     * 
+     * ###
+     * PUNTO 10b:
+     * Declare un metodo 'casillaSeleccionarAlrededor' que haga lo siguiente:
+     *	- Acepte como parametro la direccion X y Y de la casilla a reiniciar.
+     *	- Seleccione las 8 casillas alrededor de la casilla indicada por
+     *	    parametro.
+     */
+    
+    
+    
+    
+    
+    
+    
+    
 }
