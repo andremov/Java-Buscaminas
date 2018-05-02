@@ -16,8 +16,8 @@ import javax.swing.SwingConstants;
 
 /**
  *
- * @author Andrés Movilla
- * MASTER FILE
+ * EXTRA:
+ * Arreglen el titulo de la ventana, y hagan que muestre cuantos juegos se han jugado, ganado y perdido.
  */
 public class Buscaminas extends JFrame implements Runnable {
 
