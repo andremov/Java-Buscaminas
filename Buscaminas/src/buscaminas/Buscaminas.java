@@ -9,7 +9,6 @@ import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -40,11 +39,7 @@ public class Buscaminas extends JFrame implements Runnable {
      * Espacio entre casillas.
      */
     int espacioCasilla = 5;
-
-    /**
-     * Matriz de JButton que corresponden al tablero.
-     */
-//    JButton[][] botonesTablero;
+    
     /**
      * Matriz de JLabel que corresponden a las minas en el tablero.
      */
